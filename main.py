@@ -39,14 +39,14 @@ def move_into_folders(files_by_album, folders_dir: Path = Path("./albums/")) -> 
     Moves the files into the corresponding folders
     Returns (folders_count, files_count)
     """
-    files_count = folders_count = 0
+    folder_count = file_count = 0
     for file_key in files_by_album:
         file_name = file_key
         while True:
             if is_valid_folder_name(file_name):
                 os.makedirs(folders_dir/file_name, exist_ok=True)
                 print("Created directory:", folders_dir/file_name)
-                albums_count += 1
+                folder_count += 1
                 break
 
             else:
@@ -55,8 +55,8 @@ def move_into_folders(files_by_album, folders_dir: Path = Path("./albums/")) -> 
 
         for file in files_by_album[file_key]:
             shutil.move(file, folders_dir/file_name/file.name)
-            songs_count += 1
-    return folders_count, files_count
+            file_count += 1
+    return folder_count, file_count
 
 if __name__ == "__main__":
     songs_dir = Path('./songs/')
